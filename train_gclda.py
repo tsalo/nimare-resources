@@ -7,7 +7,7 @@ from nimare import annotate
 dset = nim.dataset.Dataset.load('resources/neurosynth_with_cogat.pkl.gz')
 
 counts_df = annotate.text.generate_counts(
-    dset.texts, text_column='abstract', tfidf=False, max_df=0.99, min_df=0)
+    dset.texts, text_column='abstract', tfidf=False, max_df=0.99, min_df=0.01)
 coordinates_df = dset.coordinates
 
 # Run model
