@@ -4,10 +4,10 @@ Train GCLDA model on Neurosynth dataset.
 import nimare as nim
 from nimare import annotate
 
-dset = nim.dataset.Dataset.load('resources/neurosynth_with_cogat.pkl.gz')
+dset = nim.dataset.Dataset.load('/scratch/tsalo006/nimare-resources/resources/neurosynth_with_cogat.pkl.gz')
 
 counts_df = annotate.text.generate_counts(
-    dset.texts, text_column='abstract', tfidf=False, max_df=0.99, min_df=0.01)
+    dset.texts, text_column='abstract', tfidf=False, max_df=0.98, min_df=0.02)
 coordinates_df = dset.coordinates
 
 # Run model
@@ -18,4 +18,4 @@ model = annotate.gclda.GCLDAModel(
 model.fit(n_iters=50000, loglikely_freq=1000)
 
 # Save trained model to file
-model.save('resources/neurosynth_gclda.pkl.gz')
+model.save('/scratch/tsalo006/nimare-resources/resources/neurosynth_gclda.pkl.gz')
