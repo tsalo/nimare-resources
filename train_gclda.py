@@ -1,14 +1,18 @@
 """
 Train GCLDA model on Neurosynth dataset.
 """
+import logging
 import nimare as nim
 from nimare import annotate
+
+LGR = logging.getLogger("train_gclda")
 
 dset = nim.dataset.Dataset.load('/scratch/tsalo006/nimare-resources/resources/neurosynth_with_cogat.pkl.gz')
 
 counts_df = annotate.text.generate_counts(
     dset.texts, text_column='abstract', tfidf=False, max_df=0.98, min_df=0.02)
 coordinates_df = dset.coordinates
+LGR.info("counts_df: {}".format(counts_df.shape))
 
 # Run model
 model = annotate.gclda.GCLDAModel(
